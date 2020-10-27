@@ -985,7 +985,7 @@ class PythonWrapperGenerator(object):
             decls = self.parser.parse(hdr)
             if len(decls) == 0:
                 continue
-            self.code_include.write( '#include "{0}"\n'.format(hdr[hdr.rindex('src/'):]) )
+            self.code_include.write( '#include "{0}"\n'.format(hdr[hdr.rindex('include/'):]) )
             for decl in decls:
                 name = decl[0]
                 if name.startswith("struct") or name.startswith("class"):

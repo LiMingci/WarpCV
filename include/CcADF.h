@@ -1,7 +1,9 @@
 #pragma once
+#include <opencv/cv.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 
+namespace nld {
 enum DIFFUSIVITY_TYPE
 {
 	PM_G1 = 0,
@@ -10,16 +12,17 @@ enum DIFFUSIVITY_TYPE
 	CHARBONNIER = 3
 };
 
-struct CcADFConfig
+class CV_EXPORTS_W_SIMPLE CcADFConfig
 {
-	float _ttime;
-	DIFFUSIVITY_TYPE _diffusivity;   ///< Diffusivity type
-	float _tmax;
-	float _soffset;
+public:
+	CV_PROP_RW float _ttime;
+	CV_PROP_RW int _diffusivity;   ///< Diffusivity type
+	CV_PROP_RW float _tmax;
+	CV_PROP_RW float _soffset;
 
-	CcADFConfig(
+	CV_WRAP CcADFConfig(
 		float ttime = 2.0f,
-		DIFFUSIVITY_TYPE diffusivity = PM_G2,
+		int diffusivity = PM_G2,
 		float tmax = 0.25,
 		float soffset = 1.6f) 
 		: _ttime(ttime), _diffusivity(diffusivity), _tmax(tmax), _soffset(soffset)
@@ -29,13 +32,13 @@ struct CcADFConfig
 
 };
 
-class CcADF
+class CV_EXPORTS_W CcADF
 {
 public:
-	CcADF(const CcADFConfig& config = CcADFConfig());
+	CV_WRAP CcADF(const CcADFConfig& config = CcADFConfig());
 	~CcADF();
 
-	bool AnisotropicDiffusionFilter(const cv::Mat& srcMat, cv::Mat& dstMat);
+	CV_WRAP bool AnisotropicDiffusionFilter(const cv::InputArray& srcMat, cv::OutputArray& dstMat);
 
 private:
 	bool AnisotropicDiffusionFilterSingle(const cv::Mat& srcMat, cv::Mat& dstMat);
@@ -47,3 +50,4 @@ private:
 
 };
 
+}

@@ -3,7 +3,7 @@
 #include "nldiffusion_functions.h"
 #include "CcADF.h"
 
-
+namespace nld{
 CcADF::CcADF(const CcADFConfig& config)
 {
 	_config = config;
@@ -14,8 +14,15 @@ CcADF::~CcADF()
 {
 }
 
-bool CcADF::AnisotropicDiffusionFilter(const cv::Mat& srcMat, cv::Mat& dstMat)
+bool CcADF::AnisotropicDiffusionFilter(const cv::InputArray& srcArr, cv::OutputArray& dstArr)
 {
+	cv::Mat srcMat = srcArr.getMat();
+	if (dstArr.needed())
+	{
+        dstArr.create(srcMat.size(), srcMat.type());
+	}
+	cv::Mat dstMat = dstArr.getMat();
+
 	int imgChannels = srcMat.channels();
 
 	bool result = false;
@@ -113,4 +120,5 @@ bool CcADF::AnisotropicDiffusionFilterMutil(const cv::Mat& srcMat, cv::Mat& dstM
 	cv::merge(filtedMats, dstMat);
 
 	return result;
+}
 }
