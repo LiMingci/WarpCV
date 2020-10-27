@@ -22,9 +22,6 @@
 #define QUOTEME(xxstuff) QUOTEME_I(xxstuff)
 #define QUOTEME_I(xxstuff) #xxstuff
 
-// #define INCLUDE_FILE(xxff) INCLUDE_FILE_J(MODULE_PREFIX ## xxff)
-// #define INCLUDE_FILE_I(xxff) INCLUDE_FILE_J(xxff)
-// #define INCLUDE_FILE_J(xxff) QUOTEME(build/xxff.h)
 #define INCLUDE_FILE(xxff) QUOTEME(BUILD_DIR/xxff)
 
 #if PY_MAJOR_VERSION >= 3
@@ -47,9 +44,7 @@
 #  define CV_PYTHON_TYPE_HEAD_INIT() PyObject_HEAD_INIT(&PyType_Type) 0,
 #endif
 
-// #include QUOTEME(build/pycv_generated_include.h)
 #include INCLUDE_FILE(pycv_generated_include.h)
-// #include "build/pycv_generated_include.h"
 
 #include "opencv2/core/types_c.h"
 #include <opencv2/core/ocl.hpp>
@@ -1707,13 +1702,8 @@ static int convert_to_char(PyObject *o, char *dst, const char *name = "no_name")
 #  pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
 
-// #include QUOTEME(build/pycv_generated_types.h)
 #include INCLUDE_FILE(pycv_generated_types.h)
-// #include "build/pycv_generated_types.h"
-
-// #include QUOTEME(build/pycv_generated_funcs.h)
 #include INCLUDE_FILE(pycv_generated_funcs.h)
-// #include "build/pycv_generated_funcs.h"
 
 static PyMethodDef special_methods[] = {
 #ifdef HAVE_OPENCV_HIGHGUI
@@ -1774,10 +1764,7 @@ static void init_submodule(PyObject * root, const char * name, PyMethodDef * met
 
 }
 
-// #include QUOTEME(build/pycv_generated_ns_reg.h)
 #include INCLUDE_FILE(pycv_generated_ns_reg.h)
-// #include "build/pycv_generated_ns_reg.h"
-
 
 static int to_ok(PyTypeObject *to)
 {
@@ -1813,10 +1800,7 @@ void initcv2()
 {
   import_array();
 
-// #include QUOTEME(build/pycv_generated_type_reg.h)
 #include INCLUDE_FILE(pycv_generated_type_reg.h)
-// #include "build/pycv_generated_type_reg.h"
-
 
 #if PY_MAJOR_VERSION >= 3
   PyObject* m = PyModule_Create(&MODULE_DEF_NAME(MODULE_STR));
@@ -1854,10 +1838,7 @@ void initcv2()
 
   PUBLISH_OBJECT("UMat", cv2_UMatWrapperType);
 
-// #include QUOTEME(build/pycv_generated_type_publish.h)
 #include INCLUDE_FILE(pycv_generated_type_publish.h)
-// #include "build/pycv_generated_type_publish.h"
-
 
 #define PUBLISH(I) PyDict_SetItemString(d, #I, PyInt_FromLong(I))
 //#define PUBLISHU(I) PyDict_SetItemString(d, #I, PyLong_FromUnsignedLong(I))
