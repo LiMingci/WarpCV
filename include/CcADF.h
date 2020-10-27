@@ -38,7 +38,7 @@ public:
 	CV_WRAP CcADF(const CcADFConfig& config = CcADFConfig());
 	~CcADF();
 
-	CV_WRAP bool AnisotropicDiffusionFilter(const cv::InputArray& srcMat, cv::OutputArray& dstMat);
+	CV_WRAP bool AnisotropicDiffusionFilter(cv::InputArray srcMat, cv::OutputArray dstMat);
 
 private:
 	bool AnisotropicDiffusionFilterSingle(const cv::Mat& srcMat, cv::Mat& dstMat);
